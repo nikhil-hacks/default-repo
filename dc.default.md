@@ -45,3 +45,9 @@ docker compose logs
 
 # Stop containers
 docker compose down
+
+
+
+
+docker swarm init --advertise-addr master ip
+docker service create --name mynginx -p 8080:80 nginx
