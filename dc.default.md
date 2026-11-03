@@ -2,27 +2,36 @@
 services:
   nginx:
     image: nginx:latest
-    container_name: my-nginx
+    container_name: nginx-server
     ports:
       - "8080:80"
     volumes:
-      - ./index.html:/usr/share/nginx/html/index.html
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./web1.html:/usr/share/nginx/html/web1.html
+      - ./web2.html:/usr/share/nginx/html/web2.html
     restart: always
 
 
     #default.conf
-
-    server {
+  server {
     listen 80;
     server_name localhost;
 
     location / {
         root /usr/share/nginx/html;
-        index index.html;
+        index web1.html;
+    }
+
+    location /web1 {
+        root /usr/share/nginx/html;
+        index web1.html;
+    }
+
+    location /web2 {
+        root /usr/share/nginx/html;
+        index web2.html;
     }
 }
-
 
 
 # Start containers
